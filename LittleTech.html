@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LittleTechUg </title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        /* Section Headings */
+        #about h1 {
+            color: #ffcc00; /* Golden Yellow */
+        }
+
+        #projects h2 {
+            color: #2196F3; /* Bright Blue */
+        }
+
+        #contact h2 {
+            color: #005700; /* Dark Green */
+        }
+
+        .container {
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem auto;
+            max-width: 1100px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Unique container colors */
+        #about {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            color: #fff;
+            text-align: center;
+        }
+
+        #projects {
+            background: linear-gradient(135deg, #85e3ff, #93a9ff);
+            color: #fff;
+        }
+
+        #contact {
+            background: linear-gradient(135deg, #ff7f50, #ff4500);
+            color: #fff;
+        }
+
+        /* Circular Profile Picture */
+        .profile-picture {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            overflow: hidden;
+            margin: 0 auto 1rem;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            scroll-snap-type: x mandatory;
+            padding: 1rem 0;
+        }
+
+        .carousel-item {
+            flex: 0 0 300px;
+            background: #fff;
+            color: #333;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            scroll-snap-align: start;
+            transition: transform 0.3s ease;
+            margin: 0 70px;
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #333;
+            color: #fff;
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #666;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        input, textarea {
+            padding: 0.8rem;
+            border: 1px solid #ff4500; /* Light Orange Border */
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #ffe0b2; /* Light Orange Background */
+            transition: border 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border: 1px solid #ff7f50; /* Darker Orange on Focus */
+            outline: none;
+        }
+
+        /* Enhanced Send Message Button */
+        button[type="submit"] {
+            background: #4caf50; /* Light Green */
+            color: #fff;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background: #45a049; /* Darker Green */
+        }
+
+        /* Hidden Menu */
+        .menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: #333;
+            color: #fff;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .menu.active {
+            transform: translateX(0);
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 2rem;
+        }
+
+        .menu ul li {
+            margin: 1rem 0;
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: #85e3ff;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .menu ul li a:hover {
+            color: #93a9ff;
+        }
+
+        /* Menu Toggle Button */
+        .menu-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #333;
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .footer-handles {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        footer a {
+            color: #85e3ff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #93a9ff;
+        }
+
+        /* Copyright */
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        /* Small Image in Consultation */
+        .consultation-image {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .consultation-image img {
+            width: 220px; /* Adjust size as needed */
+            height: auto;
+            border-radius: 5px;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .carousel-item {
+                flex: 0 0 80%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+            }
+
+            .footer-handles {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Toggle Button -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <!-- Hidden Menu -->
+    <nav class="menu" id="menu">
+        <ul>
+            <li><a href="#about">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section -->
+    <div id="about" class="container">
+        <div class="profile-picture">
+            <img src="little.jpg" alt="LittleTechUg">
+        </div>
+        <h1>About LittleTechUg</h1>
+        <p>Hello, I'm <strong>LittleTechUg</strong>, a tech enthusiast,Pop Artist,Multi-tasker and developer passionate about creating innovative and user-friendly solutions. From sleek designs to robust functionality, I strive to deliver projects that leave a lasting impact. Let's build the future together!</p>
+    </div>
+
+    <!-- Projects Section -->
+    <div id="projects" class="container">
+        <h2>My Projects</h2>
+        <div class="carousel">
+            <div class="carousel-item">
+                <h3>Tech Blog</h3>
+                <p>A responsive blog platform where tech enthusiasts can share and explore ideas. Built with modern frameworks for speed and functionality.</p>
+                <a href="https//wa.me/256777309180" class="btn">You need more?</a>
+            </div>
+            <div class="carousel-item">
+                <h3>eCommerce Platform</h3>
+                <p>An intuitive online store with real-time cart updates, payment integration, and a sleek UI.</p>
+                <a href="https//wa.me/256777309180" class="btn">Reach Out</a>
+            </div>
+            <div class="carousel-item">
+                <h3>Portfolio Website</h3>
+                <p>A personal portfolio showcasing my skills, projects, and client testimonials. Interactive, fast-loading, and built with care.</p>
+                <a href="https//wa.me/256777309180" class="btn">Get In Touch</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="container">
+        <h2>Contact Me</h2>
+        <div class="carousel">
+            <div class="carousel-item">
+                <h3>Book a Consultation</h3>
+                <p>Interested in discussing a project? Schedule a consultation by calling <strong>0777 309180</strong> (also on WhatsApp).</p>
+                <a href="tel:+256777309180" class="btn">Book Now</a>
+                <div class="consultation-image">
+                    <img src="little.jpg" alt="Consultation">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <h3>Contact Form</h3>
+                <form action="#" method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer id="footer">
+        <p class="footer-handles">LittleTechUg</p>
+        <p>Handles: <a href="https://twitter.com/LittleTechUg" target="_blank">@LittleTechUg</a></p>
+        <p>Tel: <a href="tel:+256777309180">0777 309180</a></p>
+        <p>YouTube: <a href="https://youtube.com/LittleTechUg" target="_blank">LittleTech Ug</a></p>
+        <p class="copyright">&copy; 2025 LittleTechUg</p>
+    </footer>
+
+    <script>
+        // Toggle menu visibility
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
